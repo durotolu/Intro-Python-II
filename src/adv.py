@@ -1,3 +1,4 @@
+from player import Player
 from room import Room
 
 # Declare all the rooms
@@ -38,6 +39,7 @@ room['treasure'].s_to = room['narrow']
 #
 
 # Make a new player object that is currently in the 'outside' room.
+newPlayer = Player('dude', room['outside'])
 
 # Write a loop that:
 #
@@ -49,3 +51,51 @@ room['treasure'].s_to = room['narrow']
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+selection = None
+while selection != 'q':
+    print(F"{newPlayer.player_name} is in {newPlayer.room.name}")
+    selection = str(input('Select direction of movement\n[n] North  [e] East  [s] South  [w] West\n'))
+
+    if 'Outside' in newPlayer.room.name:
+        if selection == "n":
+            newPlayer.room = room["foyer"]
+        elif (selection == "e") or (selection =="s") or (selection =="w"):
+            print('Error, you cannot go that way')
+        else:
+            print('Kindly pick one cardinal point')
+    elif 'Foyer' in newPlayer.room.name:
+        if selection == "n":
+            newPlayer.room = room["overlook"]
+        elif selection == "s":
+            newPlayer.room = room["outside"]
+        elif selection == "e":
+            newPlayer.room = room["narrow"]
+        elif (selection =="w"):
+            print('Error, you cannot go that way')
+        else:
+            print('Kindly pick one cardinal point')
+    elif 'Narrow' in newPlayer.room.name:
+        if selection == "n":
+            newPlayer.room = room["treasure"]
+        elif selection == "w":
+            newPlayer.room = room["foyer"]
+        elif (selection == "e") or (selection =="s"):
+            print('Error, you cannot go that way')
+        else:
+            print('Kindly pick one cardinal point')
+    elif 'Treasure' in newPlayer.room.name:
+        if selection == "s":
+            newPlayer.room = room["narrow"]
+        elif (selection == "n") or (selection =="e") or (selection =="w"):
+            print('Error, you cannot go that way')
+        else:
+            print('Kindly pick one cardinal point')
+    elif 'Overlook' in newPlayer.room.name:
+        if selection == "s":
+            newPlayer.room = room["foyer"]
+        elif (selection == "n") or (selection =="e") or (selection =="w"):
+            print('Error, you cannot go that way')
+        else:
+            print('Kindly pick one cardinal point')
+    else:
+        print("you're in no mans land")
