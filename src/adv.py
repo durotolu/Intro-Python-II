@@ -20,6 +20,12 @@ to north. The smell of gold permeates the air.""", ['gun', 'c4', 'map']),
     'treasure': Room("Treasure Chamber", """You've found the long-lost treasure
 chamber! Sadly, it has already been completely emptied by
 earlier adventurers. The only exit is to the south.""", ['note', 'skull']),
+
+    'weapon': Room("Weapons Chamber", """You've stumbled upon the weapons chamber,
+though it is practically empty.""", ['trident', 'poison', 'cross-bow', 'rifle']),
+
+    'ladder': Room("Ladder to the roof", """You are on your way to the roof,
+    don't bother.""", ['whip']),
 }
 
 
@@ -106,7 +112,7 @@ while selection != 'q':
             elif selection == "e":
                 newPlayer.room = room["narrow"]
             elif (selection =="w"):
-                print('Error, you cannot go that way')
+                newPlayer.room = room["weapon"]
         elif 'Narrow' in newPlayer.room.name:
             actions(itemObject)
             if selection == "n":
@@ -125,7 +131,21 @@ while selection != 'q':
             actions(itemObject)
             if selection == "s":
                 newPlayer.room = room["foyer"]
+            if selection == "n":
+                newPlayer.room = room["ladder"]
+            elif (selection =="e") or (selection =="w"):
+                print('Error, you cannot go that way')
+        elif 'Ladder' in newPlayer.room.name:
+            actions(itemObject)
+            if selection == "s":
+                newPlayer.room = room["overlook"]
             elif (selection == "n") or (selection =="e") or (selection =="w"):
+                print('Error, you cannot go that way')
+        elif 'Weapon' in newPlayer.room.name:
+            actions(itemObject)
+            if selection == "e":
+                newPlayer.room = room["foyer"]
+            elif (selection == "n") or (selection =="s") or (selection =="w"):
                 print('Error, you cannot go that way')
     except:
         print('Kindly pick a valid input')
